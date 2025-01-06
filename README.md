@@ -1,84 +1,69 @@
-# Heart-Disease-Prediction-using-ML
+OVERVIEW
+This project utilizes machine learning to predict the likelihood of a person having heart disease based on various health parameters. The model is trained using a dataset that contains multiple features such as age, sex, blood pressure, cholesterol levels, and more, to predict if an individual has heart disease.
 
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+DATASET
+The dataset used for training the model is a CSV file named data.csv, which includes the following features:
+age: Age of the person
+sex: Gender (0 = female, 1 = male)
+cp: Chest pain type
+trestbps: Resting blood pressure
+chol: Serum cholesterol in mg/dl
+fbs: Fasting blood sugar (> 120 mg/dl, 1 = true, 0 = false)
+restecg: Resting electrocardiographic results
+thalach: Maximum heart rate achieved
+exang: Exercise induced angina (1 = yes, 0 = no)
+oldpeak: Depression induced by exercise relative to rest
+slope: Slope of the peak exercise ST segment
+ca: Number of major vessels colored by fluoroscopy
+thal: Thalassemia (3 = normal, 6 = fixed defect, 7 = reversible defect)
+target: 1 if the person has heart disease, 0 if they don't
+Objectives
+The objective of this project is to create a predictive model using machine learning to identify whether an individual is at risk of heart disease or not based on the aforementioned features. The model is built using logistic regression.
 
+STEPS INVOLVED
+Data Preprocessing---
+Load the dataset and inspect the first few rows.
+Check for missing values and clean the data if necessary.
+Perform basic statistical analysis to understand the data distribution.
+Feature Selection
 
-# loading the csv data to a Pandas DataFrame
-heart_data = pd.read_csv('/content/data.csv')
+The target variable (target) is separated from the feature columns.
+The dataset is split into training and testing sets for model evaluation.
+Model Building
 
-# print first 5 rows of the dataset
-heart_data.head()
+Logistic Regression is used as the model for predicting heart disease.
+The model is trained using the training dataset.
+Predictions are made using the trained model on both the training and testing sets.
+Evaluation
 
-# print last 5 rows of the dataset
-heart_data.tail()
+The model’s accuracy is assessed on both training and testing datasets.
+The prediction results are compared against the true labels to evaluate performance.
+Prediction
 
-# number of rows and columns in the dataset
-heart_data.shape
+A predictive system is built where a new input can be given, and the system will predict if the person has heart disease or not based on the given parameters.
+Model Evaluation
+The model performance is evaluated using the accuracy score:
 
-# getting some info about the data
-heart_data.info()
+Accuracy on Training Data: The proportion of correctly predicted values on the training set.
+Accuracy on Test Data: The proportion of correctly predicted values on the test set.
+Example of Usage
+To predict whether a person has heart disease or not, you can provide an input like the following:
 
-# checking for missing values
-heart_data.isnull().sum()
+input_data = (62, 0, 0, 140, 268, 0, 0, 160, 0, 3.6, 0, 2, 2)
+This input represents the health parameters of an individual, and the model will predict whether the person has heart disease (1) or not (0).
 
-# statistical measures about the data
-heart_data.describe()
+CONLUSION
+This project demonstrates how machine learning can be used to predict heart disease based on key medical features. With further improvements and a larger dataset, it can be used as a diagnostic tool to assist healthcare professionals in making more informed decisions.
 
-# checking the distribution of Target Variable
-heart_data['target'].value_counts()
+TECHNOLOGIES USED
+-Python
+-NumPy
+-Pandas
+-Scikit-learn (for Logistic Regression and model evaluation)
 
-# splitting the features and target
-X = heart_data.drop(columns='target', axis=1)
-Y = heart_data['target']
+HOW TO RUN
+google colab would be best to run this project.
+Make sure that the data.csv file is present in the same directory as the script or provide the correct file path.
 
-print(X)
-print(Y)
-
-# splitting data into test data and train data
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, stratify=Y, random_state=2)
-
-print(X.shape, X_train.shape, X_test.shape)
-
-# model training
-# logistic regresiion
-model = LogisticRegression()
-
-# training the LogisticRegression model with Training data
-model.fit(X_train, Y_train)
-
-# accuracy on training data
-X_train_prediction = model.predict(X_train)
-training_data_accuracy = accuracy_score(X_train_prediction, Y_train)
-
-print('Accuracy on Training data : ', training_data_accuracy)
-
-# accuracy on test data
-X_test_prediction = model.predict(X_test)
-test_data_accuracy = accuracy_score(X_test_prediction, Y_test)
-
-print('Accuracy on Test data : ', test_data_accuracy)
-
-# building predictive system
-input_data = (62,0,0,140,268,0,0,160,0,3.6,0,2,2)
-
-# change the input data to a numpy array
-input_data_as_numpy_array= np.asarray(input_data)
-
-# reshape the numpy array as we are predicting for only on instance
-input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
-
-prediction = model.predict(input_data_reshaped)
-print(prediction)
-
-if (prediction[0]== 0):
-  print('The Person does not have a Heart Disease')
-else:
-  print('The Person has Heart Disease')
-
-
-
-
+AUTHOR
+Suraj Kanswal
